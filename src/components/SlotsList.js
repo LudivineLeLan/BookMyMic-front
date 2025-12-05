@@ -8,7 +8,7 @@ function SlotsList({ onSelectSlot, selectedDate }) {
   useEffect(() => {
     const getAllSlots = async () => {
       try {
-        const res = await fetch("http://localhost:3000/slots");
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/slots`);
         const data = await res.json();
         const filtered = data.filter(
           slot =>
