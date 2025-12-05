@@ -23,20 +23,21 @@ function SlotsList({ onSelectSlot, selectedDate }) {
   return (
     <div className="card">
       <h2 className="section-title">Créneaux disponibles</h2>
-      <div>
-        <ul>
-          {slots.map(slot => (
-            <li key={slot.id}>
-              {new Date(slot.date).toLocaleString()}{" "}
-              {slot.available ? (
-                <button onClick={() => onSelectSlot(slot)}>Réserver</button>
-              ) : (
-                "Indisponible"
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="list">
+        {slots.length === 0 && <li>Aucun créneau disponible</li>}
+        {slots.map(slot => (
+          <li key={slot.id} className="list-item">
+            {new Date(slot.date).toLocaleString()}
+            {slot.available ? (
+              <button className="button-booking" onClick={() => onSelectSlot(slot)}>
+                Réserver
+              </button>
+            ) : (
+              <span>Indisponible</span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

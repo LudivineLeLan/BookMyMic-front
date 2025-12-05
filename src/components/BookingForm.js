@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function BookingForm({ slot, onBooked }) {
+function BookingForm({ slot, onBooked, onCancel }) {
   const [name, setName] = useState("");
 
   const handleSubmit = async (event) => {
@@ -29,13 +29,9 @@ function BookingForm({ slot, onBooked }) {
     <form onSubmit={handleSubmit}>
       <h3>Réserver le créneau : {new Date(slot.date).toLocaleString()}</h3>
       <input
-        type="text"
-        placeholder="Votre nom"
-        value={name}
-        onChange={event => setName(event.target.value)}
-        required
-      />
-      <button type="submit">Réserver</button>
+        type="text" placeholder="Votre nom" value={name} onChange={event => setName(event.target.value)} required />
+      <button type="submit" className="button-booking">Réserver</button>
+      <button type="button" className="button-cancel" onClick={onCancel}>Annuler</button>
     </form>
   );
 }

@@ -17,7 +17,7 @@ function App() {
       <CalendarView onDateChange={setSelectedDate} />
 
       {selectedSlot ? (
-        <BookingForm slot={selectedSlot} onBooked={handleBooked} />
+        <BookingForm slot={selectedSlot} onBooked={handleBooked} onCancel={() => setSelectedSlot(null)} />
       ) : (
         <SlotsList selectedDate={selectedDate} onSelectSlot={handleSlotSelect} />
       )}
