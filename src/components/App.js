@@ -1,24 +1,25 @@
 import { useState } from "react";
 import SlotsList from "./SlotsList";
 import BookingForm from "./BookingForm";
+import CalendarView from "./CalendarView";
 
 function App() {
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const handleSlotSelect = (slot) => {
-    setSelectedSlot(slot);
-  };
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const handleBooked = () => {
-    setSelectedSlot(null);
-  };
+  const handleSlotSelect = (slot) => setSelectedSlot(slot);
+  const handleBooked = () => setSelectedSlot(null);
 
   return (
-    <div className="booking-container">
+    <div className="app-container">
       <h1>BookMyMic</h1>
+
+      <CalendarView onDateChange={setSelectedDate} />
+
       {selectedSlot ? (
         <BookingForm slot={selectedSlot} onBooked={handleBooked} />
       ) : (
-        <SlotsList onSelectSlot={handleSlotSelect} />
+        <SlotsList selectedDate={selectedDate} onSelectSlot={handleSlotSelect} />
       )}
     </div>
   );

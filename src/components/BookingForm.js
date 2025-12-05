@@ -30,7 +30,7 @@ function BookingForm({ slot, onBooked }) {
       <h3>Réserver le créneau : {new Date(slot.date).toLocaleString()}</h3>
       <input
         type="text"
-        placeholder="Ton nom"
+        placeholder="Votre nom"
         value={name}
         onChange={event => setName(event.target.value)}
         required

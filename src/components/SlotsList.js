@@ -1,39 +1,44 @@
 import { useState, useEffect } from "react";
 
-function SlotsList({ onSelectSlot }) {
+function SlotsList({ onSelectSlot, selectedDate }) {
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
-    const fetchSlots = async () => {
+    const getAllSlots = async () => {
       try {
         const res = await fetch("http://localhost:3000/slots");
         const data = await res.json();
-        setSlots(data);
+        const filtered = data.filter(slot =>
+          new Date(slot.date).toDateString() === selectedDate.toDateString()
+        );
+        setSlots(filtered);
       } catch (error) {
         console.error("Erreur lors de la récupération des créneaux :", error);
       }
     };
 
-    fetchSlots();
-  }, []);
+    getAllSlots();
+  }, [selectedDate]);
 
   return (
-    <div>
-      <h2>Créneaux disponibles</h2>
-      <ul>
-        {slots.map(slot => (
-          <li key={slot.id}>
-            {new Date(slot.date).toLocaleString()}{" "}
-            {slot.available ? (
-              <button onClick={() => onSelectSlot(slot)}>Réserver</button>
-            ) : (
-              "Indisponible"
-            )}
-          </li>
-        ))}
-      </ul>
+    <div className="card">
+      <h2 className="section-title">Créneaux disponibles</h2>
+      <div>
+        <ul>
+          {slots.map(slot => (
+            <li key={slot.id}>
+              {new Date(slot.date).toLocaleString()}{" "}
+              {slot.available ? (
+                <button onClick={() => onSelectSlot(slot)}>Réserver</button>
+              ) : (
+                "Indisponible"
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
 
-export default SlotsList
+export default SlotsList;
