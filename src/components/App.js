@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "./Header";
 import SlotsList from "./SlotsList";
 import BookingForm from "./BookingForm";
 import CalendarView from "./CalendarView";
@@ -12,10 +13,9 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>BookMyMic</h1>
-
+      <Header />
       <CalendarView onDateChange={setSelectedDate} />
-
+      <p className="calendar-note"> Réservez vos créneaux jusqu'à 3 mois à l'avance ! </p>
       {selectedSlot ? (
         <BookingForm slot={selectedSlot} onBooked={handleBooked} onCancel={() => setSelectedSlot(null)} />
       ) : (

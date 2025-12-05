@@ -1,0 +1,48 @@
+/* Styles globaux pour toute l'application */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #1a1a40, #3b2c60);
+  color: #f0e6f6;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #f72585;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px #7209b7;
+}
+
+.app-slogan {
+  font-size: 1.3rem;
+  color: #f72585;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 3px #7209b7;
+}
+
+.success-message {
+  color: #f72585;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #2b2b4b;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    padding: 10px;
+  }
+}

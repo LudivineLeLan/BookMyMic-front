@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
+import '../styles/CalendarView.css'
 import 'react-calendar/dist/Calendar.css';
 
 export default function CalendarView({ onDateChange }) {

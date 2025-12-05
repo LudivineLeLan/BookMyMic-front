@@ -1,0 +1,22 @@
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555577;
+  border-radius: 6px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  background-color: #1a1a40;
+  color: #f0e6f6;
+}
+
+.success-message {
+  color: #f72585;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #2b2b4b;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}

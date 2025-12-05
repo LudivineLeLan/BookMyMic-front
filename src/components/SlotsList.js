@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import '../styles/SlotsList.css'
+
 
 function SlotsList({ onSelectSlot, selectedDate }) {
   const [slots, setSlots] = useState([]);
