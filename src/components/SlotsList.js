@@ -8,8 +8,9 @@ function SlotsList({ onSelectSlot, selectedDate }) {
       try {
         const res = await fetch("http://localhost:3000/slots");
         const data = await res.json();
-        const filtered = data.filter(slot =>
-          new Date(slot.date).toDateString() === selectedDate.toDateString()
+        const filtered = data.filter(
+          slot =>
+            new Date(slot.date).toDateString() === selectedDate.toDateString()
         );
         setSlots(filtered);
       } catch (error) {
@@ -23,21 +24,30 @@ function SlotsList({ onSelectSlot, selectedDate }) {
   return (
     <div className="card">
       <h2 className="section-title">Créneaux disponibles</h2>
-      <ul className="list">
-        {slots.length === 0 && <li>Aucun créneau disponible</li>}
-        {slots.map(slot => (
-          <li key={slot.id} className="list-item">
-            {new Date(slot.date).toLocaleString()}
-            {slot.available ? (
-              <button className="button-booking" onClick={() => onSelectSlot(slot)}>
-                Réserver
-              </button>
-            ) : (
-              <span>Indisponible</span>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <ul className="list">
+          {slots.map(slot => {
+            const slotDate = new Date(slot.date);
+            const formattedDate = slotDate.toLocaleDateString([], {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit"
+            });
+            const formattedTime = slotDate.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+
+            return (
+              <li key={slot.id} className="list-item">
+                {formattedDate} {formattedTime}{" "} {slot.available ? (
+                  <button className="button-booking" onClick={() => onSelectSlot(slot)}> Réserver </button>) : (<span>Indisponible</span>)
+                }
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
