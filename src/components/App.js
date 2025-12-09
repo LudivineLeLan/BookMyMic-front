@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Authentification from "./Authentification";
 import Header from "./Header";
 import SlotsList from "./SlotsList";
 import BookingForm from "./BookingForm";
 import CalendarView from "./CalendarView";
+import MyBookings from "./MyBookings";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,29 +29,52 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Header />
-      {!user && (
-        <button
-          className="button-booking"
-          onClick={() => setShowAuth(prev => !prev)}
-        >
-          Connexion / Inscription
-        </button>
-      )}
+    <Router>
+      <Header user={user} />
 
-      {showAuth && !user && (
-        <Authentification onLogin={handleLogin} />
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="app-container">
 
-      <CalendarView onDateChange={setSelectedDate} />
+              {!user && (
+                <button
+                  className="button-booking"
+                  onClick={() => setShowAuth(prev => !prev)}
+                >
+                  Connexion / Inscription
+                </button>
+              )}
 
-      {selectedSlot ? (
-        <BookingForm slot={selectedSlot} onBooked={handleBooked} user={user} />
-      ) : (
-        <SlotsList onSelectSlot={handleSlotSelect} selectedDate={selectedDate} />
-      )}
-    </div>
+              {showAuth && !user && (
+                <Authentification onLogin={handleLogin} />
+              )}
+
+              <CalendarView onDateChange={setSelectedDate} />
+
+              {selectedSlot ? (
+                <BookingForm
+                  slot={selectedSlot}
+                  onBooked={handleBooked}
+                  user={user}
+                />
+              ) : (
+                <SlotsList
+                  onSelectSlot={handleSlotSelect}
+                  selectedDate={selectedDate}
+                />
+              )}
+            </div>
+          }
+        />
+
+        <Route
+          path="/my-bookings"
+          element={<MyBookings user={user} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
