@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../styles/Authentification.css"
 
-export default function AuthForm({ onLogin }) {
+export default function AuthForm({ onLogin, onClose }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
@@ -9,13 +10,13 @@ export default function AuthForm({ onLogin }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const endpoint = isRegister ? "/user/register" : "/user/login";
+    const endpoint = isRegister ? "/register" : "/login";
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/user${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(isRegister ? { name, email, password } : { email, password }),
       });
 
       const data = await res.json();
@@ -39,8 +40,19 @@ export default function AuthForm({ onLogin }) {
 
   return (
     <div className="auth-card">
+      <button className="auth-close-button" onClick={onClose}>×</button>
       <h2>{isRegister ? "Créer un compte" : "Se connecter"}</h2>
       <form onSubmit={handleSubmit}>
+        {isRegister && (
+          <input
+            type="text"
+            placeholder="Nom"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+          />
+        )}
+
         <input
           type="email"
           placeholder="Email"
@@ -55,7 +67,7 @@ export default function AuthForm({ onLogin }) {
           onChange={(event) => setPassword(event.target.value)}
           required
         />
-        <button type="submit">{isRegister ? "S'inscrire" : "Se connecter"}</button>
+        <button className="auth-button" type="submit">{isRegister ? "S'inscrire" : "Se connecter"}</button>
       </form>
       <p className="auth-toggle">
         {isRegister ? "Déjà un compte ?" : "Pas encore de compte ?"}{" "}

@@ -14,9 +14,6 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAuth, setShowAuth] = useState(false);
 
-  const handleSlotSelect = (slot) => setSelectedSlot(slot);
-  const handleBooked = () => setSelectedSlot(null);
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setUser(token);
@@ -28,29 +25,30 @@ function App() {
     setShowAuth(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
+  const handleSlotSelect = (slot) => setSelectedSlot(slot);
+  const handleBooked = () => setSelectedSlot(null);
+
   return (
     <Router>
-      <Header user={user} />
+      <Header
+        user={user}
+        onLoginToggle={() => setShowAuth(prev => !prev)}
+        onLogout={handleLogout}
+      />
+
+      {showAuth && !user && (<div className="auth-modal-overlay">
+        <Authentification onLogin={handleLogin} onClose={() => setShowAuth(false)} /></div>)}
 
       <Routes>
         <Route
           path="/"
           element={
             <div className="app-container">
-
-              {!user && (
-                <button
-                  className="button-booking"
-                  onClick={() => setShowAuth(prev => !prev)}
-                >
-                  Connexion / Inscription
-                </button>
-              )}
-
-              {showAuth && !user && (
-                <Authentification onLogin={handleLogin} />
-              )}
-
               <CalendarView onDateChange={setSelectedDate} />
 
               {selectedSlot ? (
@@ -69,10 +67,7 @@ function App() {
           }
         />
 
-        <Route
-          path="/my-bookings"
-          element={<MyBookings user={user} />}
-        />
+        <Route path="/my-bookings" element={<MyBookings user={user} />} />
       </Routes>
     </Router>
   );
