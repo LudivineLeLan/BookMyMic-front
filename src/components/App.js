@@ -1,27 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Authentification from "./Authentification";
 import Header from "./Header";
 import SlotsList from "./SlotsList";
 import BookingForm from "./BookingForm";
 import CalendarView from "./CalendarView";
+import MyBookings from "./MyBookings";
+
 
 function App() {
+  const [token, setToken] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showAuth, setShowAuth] = useState(false);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  const handleLogin = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token)
+    setShowAuth(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
 
   const handleSlotSelect = (slot) => setSelectedSlot(slot);
   const handleBooked = () => setSelectedSlot(null);
 
   return (
-    <div className="app-container">
-      <Header />
-      <CalendarView onDateChange={setSelectedDate} />
-      <p className="calendar-note"> Réservez vos créneaux jusqu'à 3 mois à l'avance ! </p>
-      {selectedSlot ? (
-        <BookingForm slot={selectedSlot} onBooked={handleBooked} onCancel={() => setSelectedSlot(null)} />
-      ) : (
-        <SlotsList selectedDate={selectedDate} onSelectSlot={handleSlotSelect} />
-      )}
-    </div>
+    <Router>
+      <Header
+        user={token}
+        onLoginToggle={() => setShowAuth(prev => !prev)}
+        onLogout={handleLogout}
+      />
+
+      {showAuth && !token && (<div className="auth-modal-overlay">
+        <Authentification onLogin={handleLogin} onClose={() => setShowAuth(false)} /></div>)}
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="app-container">
+              <CalendarView onDateChange={setSelectedDate} />
+
+              {selectedSlot ? (
+                <BookingForm
+                  slot={selectedSlot}
+                  onBooked={handleBooked}
+                  token={token}
+                />
+              ) : (
+                <SlotsList
+                  onSelectSlot={handleSlotSelect}
+                  selectedDate={selectedDate}
+                />
+              )}
+            </div>
+          }
+        />
+
+        <Route
+          path="/mes-reservations"
+          element={
+            token ? (
+              <MyBookings token={token} />
+            ) : (
+              <p>Chargement des réservations…</p>
+            )
+          }
+        />
+
+      </Routes>
+    </Router>
   );
 }
 

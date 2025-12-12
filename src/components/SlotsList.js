@@ -25,7 +25,7 @@ function SlotsList({ onSelectSlot, selectedDate }) {
 
   return (
     <div className="card">
-      <h2 className="section-title">Créneaux disponibles</h2>
+      <h2 className="section-title">Créneaux disponibles pour les 3 prochains mois</h2>
       <div>
         <ul className="list">
           {slots.map(slot => {
