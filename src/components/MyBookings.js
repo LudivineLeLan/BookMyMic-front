@@ -59,10 +59,10 @@ function MyBookings({ token }) {
       ) : (
         <ul>
           {bookings
-            .filter((booking) => booking.Slot)
-            .map((booking) => (
-              <li key={bookings.id}>
-                {new Date(bookings.Slot.date).toLocaleString()} - {bookings.user_name}
+            .filter(booking => booking.Slot)
+            .map(booking => (
+              <li key={booking.id}>
+                {new Date(booking.Slot.date).toLocaleString()} - {booking.user_name}
                 <span className="cancel-emoji" title="Annuler" onClick={() => handleCancel(booking.id)}>❌</span>
               </li>
             ))}

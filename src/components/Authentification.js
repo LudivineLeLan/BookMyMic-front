@@ -27,7 +27,7 @@ export default function AuthForm({ onLogin, onClose }) {
       }
 
       if (!isRegister) {
-        onLogin(data.token);
+        onLogin(data.token, data.id);
       } else {
         setMessage("Inscription réussie ! Vous pouvez maintenant vous connecter.");
         setIsRegister(false);

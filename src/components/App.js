@@ -10,20 +10,24 @@ import MyBookings from "./MyBookings";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showAuth, setShowAuth] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-    }
+    const storedUserId = localStorage.getItem("userId");
+    if (storedToken) setToken(storedToken);
+    if (storedUserId) setUserId(storedUserId);
   }, []);
 
-  const handleLogin = (token) => {
+
+  const handleLogin = (token, id) => {
     localStorage.setItem("token", token);
-    setToken(token)
+    localStorage.setItem("userId", id);
+    setToken(token);
+    setUserId(id);
     setShowAuth(false);
   };
 
