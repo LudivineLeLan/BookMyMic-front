@@ -10,6 +10,10 @@
   margin: 10px 0;
 }
 
+.app-header a {
+  text-decoration: none;
+}
+
 .app-header p {
   font-size: 1.2rem;
   color: #c77dff;
