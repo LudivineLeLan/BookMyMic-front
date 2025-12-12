@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
-function MyBookings({ userId, token }) {
+function MyBookings({ token }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
+    if (!token) return;
     const fetchBookings = async () => {
       try {
         const res = await fetch(
-          `https://bookmymic-back.onrender.com/user/${userId}/bookings`,
+          `${process.env.REACT_APP_API_URL}/user/me/bookings`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -23,7 +24,7 @@ function MyBookings({ userId, token }) {
     };
 
     fetchBookings();
-  }, [userId, token]);
+  }, [token]);
 
   return (
     <div>

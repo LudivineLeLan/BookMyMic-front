@@ -1,6 +1,5 @@
 .app-header {
   text-align: center;
-  margin-bottom: 30px;
   position: relative;
 }
 
@@ -15,7 +14,6 @@
   font-size: 1.2rem;
   color: #c77dff;
   text-shadow: 1px 1px 4px #3b2c60;
-  margin-bottom: 20px;
 }
 
 .app-banner {
