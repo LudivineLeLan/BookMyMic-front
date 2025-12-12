@@ -5,6 +5,13 @@ function BookingForm({ slot, onBooked, onCancel }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const messageRef = useRef(null);
+
+  useEffect(() => {
+    if (successMessage && messageRef.current) {
+      messageRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [successMessage]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

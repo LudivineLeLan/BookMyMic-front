@@ -58,12 +58,14 @@ function MyBookings({ token }) {
         <p>Aucune réservation pour l'instant</p>
       ) : (
         <ul>
-          {bookings.map((booking) => (
-            <li key={bookings.id}>
-              {new Date(bookings.Slot.date).toLocaleString()} - {bookings.user_name}
-              <span className="cancel-emoji" title="Annuler" onClick={() => handleCancel(booking.id)}>❌</span>
-            </li>
-          ))}
+          {bookings
+            .filter((booking) => booking.Slot)
+            .map((booking) => (
+              <li key={bookings.id}>
+                {new Date(bookings.Slot.date).toLocaleString()} - {bookings.user_name}
+                <span className="cancel-emoji" title="Annuler" onClick={() => handleCancel(booking.id)}>❌</span>
+              </li>
+            ))}
         </ul>
       )}
       <a href="/"><button className="back-button">Retour à l'accueil</button></a>

@@ -57,6 +57,7 @@ function App() {
                 <BookingForm
                   slot={selectedSlot}
                   onBooked={handleBooked}
+                  onCancel={handleBooked}
                   token={token}
                 />
               ) : (
