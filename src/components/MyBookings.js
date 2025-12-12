@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import '../styles/MyBookings.css'
 
 function MyBookings({ token }) {
   const [bookings, setBookings] = useState([]);
@@ -40,6 +41,7 @@ function MyBookings({ token }) {
           ))}
         </ul>
       )}
+      <a href="/"><button className="back-button">Retour à l'accueil</button></a>
     </div>
   );
 }

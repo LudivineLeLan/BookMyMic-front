@@ -70,7 +70,7 @@ function App() {
         />
 
         <Route
-          path="/my-bookings"
+          path="/mes-reservations"
           element={
             token ? (
               <MyBookings token={token} />

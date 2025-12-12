@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 function Header({ user, onLoginToggle, onLogout }) {
   return (
     <div className="app-header">
-      <img src={banner} alt="Book My Mic" className='app-banner' />
+      <a href="/"><img src={banner} alt="Book My Mic" className='app-banner' /></a>
       <div className="banner-overlay">
-        <h1>BookMyMic</h1>
+        <a href="/">
+          <h1>BookMyMic</h1>
+        </a>
         <p>Votre créneau, votre show !</p>
 
         <div className="header-button">
@@ -18,7 +20,7 @@ function Header({ user, onLoginToggle, onLogout }) {
 
           {user && (
             <>
-              <Link to="/my-bookings">
+              <Link to="/mes-reservations">
                 <button className="my-bookings-button">Mes réservations</button>
               </Link>
               <button className='auth-button' onClick={onLogout}>Déconnexion</button>
