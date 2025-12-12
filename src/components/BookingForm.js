@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import '../styles/BookingForm.css'
 
 function BookingForm({ slot, onBooked, onCancel }) {
