@@ -3,10 +3,11 @@ import Calendar from "react-calendar";
 import '../styles/CalendarView.css'
 import 'react-calendar/dist/Calendar.css';
 
-export default function CalendarView({ onDateChange }) {
+export default function CalendarView({ onDateChange, disabled = false }) {
   const [date, setDate] = useState(new Date());
 
   const handleChange = (date) => {
+    if (disabled) return;
     setDate(date);
     onDateChange(date);
   };

@@ -55,7 +55,9 @@ function App() {
           path="/"
           element={
             <div className="app-container">
-              <CalendarView onDateChange={setSelectedDate} />
+              <CalendarView onDateChange={setSelectedDate}
+                disabled={!!selectedSlot}
+             />
 
               {selectedSlot ? (
                 <BookingForm
