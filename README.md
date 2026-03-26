@@ -42,4 +42,4 @@ L'application tourne par défaut sur [http://localhost:3001](http://localhost:30
 ## Liens
 
 * [Repo back](https://github.com/LudivineLeLan/BookMyMic-back.git)
-* [API déployée sur](https://bookmymic.ludivinelelan.fr/)
+* [API déployée](https://bookmymic.ludivinelelan.fr/)
